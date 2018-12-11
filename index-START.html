@@ -14,10 +14,29 @@
     </div>
   </div>
 
-<script>
+<script> //getting speed, speedBar, and video elements
   const speed = document.querySelector('.speed');
   const speedBar = document.querySelector('.speed-bar');
   const video = document.querySelector('.flex');
+
+  function speedScrubber(e) {
+    const y = e.pageY - this.offsetTop;
+    const percent = y / this.offsetHeight;
+    const min = 0.2;
+    const max = 10;
+    const height = Math.round(percent * 100) + '%';
+    const playbackRate = percent * (max - min) + min;
+    speedBar.style.height = height;
+    speedBar.textContent = playbackRate.toFixed(2) + 'x';
+    video.playbackRate = playbackRate;
+
+    console.log(playbackRate);
+    console.log(percent);
+  }
+
+  // take our speed and add an event listener for the mousemove over the speed scrubber
+  speed.addEventListener('mousemove', speedScrubber);
+
 
 </script>
 </body>
